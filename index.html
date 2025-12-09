@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Berker Özer - Profile Type</title>
+
+  <style>
+    :root {
+      --bg: #e9ecef;
+      --panel: #ffffff;
+      --accent: #111827;
+      --primary: #0b74de;
+      --shadow: 0 18px 40px rgba(16, 24, 40, .12);
+      --round: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--accent);
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .wrap {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    .grid {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    /* base card */
+    .card {
+      position: relative;
+      background-size: contain;
+      background-position: center 33%; /* FOTO EN ÜSTTEN BAŞLASIN */
+      background-repeat: no-repeat;
+
+      border-radius: var(--round);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, .05);
+      overflow: hidden;
+      cursor: pointer;
+
+      transition: transform .25s ease, box-shadow .25s ease;
+      height: 300px;
+      display: block;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 22px 50px rgba(16, 24, 40, .17);
+    }
+
+    /* fotoğraf karartma + blur */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background: rgba(0, 0, 0, 0.33); /* normalde %33 opacity */
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+
+      transition: background .25s ease, backdrop-filter .25s ease;
+      pointer-events: none;
+    }
+
+    /* hover → blur KALKAR, opacity KALKAR → FOTO FULL NET */
+    .card:hover::before {
+      background: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(0px) !important;
+    }
+
+    /* içerik alanı */
+    .card .content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      padding: 18px;
+      z-index: 2;
+
+      background: rgba(0, 0, 0, 0.33); /* DAİMA 33% BLACK — HOVERDA DEĞİŞMİYOR */
+      text-align: center;
+      backdrop-filter: blur(0px);
+    }
+
+    .label {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+    }
+
+    .subtext {
+      color: #ffffff;
+      font-size: 14px;
+      opacity: 0.92;
+      margin: 0;
+    }
+
+    @media (max-width: 420px) {
+      .card { height: 260px; }
+      .label { font-size: 20px; }
+      .subtext { font-size: 13px; }
+    }
+
+    .card-corporate { background-image: url('corporate/profile.jpg'); }
+    .card-social    { background-image: url('social/profile.jpg'); }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="grid">
+
+      <a href="corporate.html" class="card card-corporate">
+        <div class="content">
+          <div class="label">Corporate</div>
+          <div class="subtext">Professional identity, CV, contact information, and business</div>
+        </div>
+      </a>
+
+      <a href="social.html" class="card card-social">
+        <div class="content">
+          <div class="label">Social</div>
+          <div class="subtext">Fun profile, fun facts, and a friendly/laid-back vibe</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</body>
+
+</html>

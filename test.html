@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>NFC Profile - Social</title>
+
+    <style>
+        :root {
+            --bg: #e9ecef;
+            --panel: #ffffff;
+            --muted: #6b7280;
+            --accent: #111827;
+            --primary: #0b74de;
+            --shadow: 0 8px 22px rgba(7, 12, 20, .14);
+            --round: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: var(--bg);
+            color: var(--accent);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ---------- WRAP (Corporate ile aynı) ----------- */
+        .wrap {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* ---------- CARD (Corporate ile aynı) ----------- */
+        .card {
+            width: 360px;
+            background: linear-gradient(180deg, #f7f7f8, #f2f3f5);
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(16, 24, 40, .12);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, .04);
+        }
+
+        /* ---------- BANNER ----------- */
+        .banner {
+            height: 140px;
+            background-image: url('social/banner.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* ---------- PROFILE ----------- */
+        .pfp-wrap {
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -60px;
+            border-radius: 14px;
+            background: #fff;
+            padding: 6px;
+            box-shadow: 0 12px 30px rgba(16, 24, 40, .18);
+        }
+
+        .pfp {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pfp img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ---------- CONTENT ----------- */
+        .content {
+            padding: 82px 22px 24px;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .school {
+            font-size: 14px;
+            text-align: center;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .department {
+            font-size: 14px;
+            text-align: center;
+            color: #374151;
+            margin-top: 4px;
+        }
+
+        /* ---------- SECTIONS ----------- */
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-top: 2px;
+            color: #0f172a;
+        }
+
+        .section-box {
+            background: var(--panel);
+            padding: 18px;
+            border-radius: 14px;
+            box-shadow: 0 10px 26px rgba(16, 24, 40, .06);
+            border: 1px solid rgba(0, 0, 0, .04);
+            margin-bottom: 22px;
+        }
+
+        /* ---------- ABOUT ----------- */
+        .about-text {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #374151;
+            margin-top: 6px;
+        }
+
+        /* ---------- INTEREST TAGS ----------- */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: #111827;
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        /* ---------- GALLERY ----------- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            padding-bottom: 100%;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            background: #ddd;
+        }
+
+        /* ---------- PROMPTS ----------- */
+        .prompt {
+            background: #f1f1f3;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        /* ---------- ACTION BUTTONS ----------- */
+        .socials {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #111827;
+            opacity: .95;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="card">
+
+            <!-- BANNER -->
+            <div class="banner">
+                <div class="pfp-wrap">
+                    <div class="pfp"><img src="social/profile.jpg" alt=""></div>
+                </div>
+            </div>
+
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <div class="name">Berker Özer</div>
+                <div class="school">İstanbul Ticaret Üniversitesi</div>
+                <div class="department">Yazılım Mühendisliği</div>
+
+                <!-- ABOUT -->
+                <div class="section-box" style="margin-top:18px">
+                    <div class="section-title">Hakkımda</div>
+                    <div class="tags">
+                        <div id="Height" class="tag">183 cm</div>
+                        <div id="Horoscope" class="tag">Leo</div>
+                    </div>
+                </div>
+
+                <!-- INTERESTS -->
+                <div class="section-box">
+                    <div class="section-title">My Interests</div>
+                    <div class="tags">
+                        <div id="Bars" class="tag">Bars</div>
+                        <div id="Anime" class="tag">Anime</div>
+                        <div id="Coffee" class="tag">Coffee</div>
+                        <div id="Programming" class="tag">Programming</div>
+                        <div id="Gaming" class="tag">Gaming</div>
+                    </div>
+                </div>
+
+                <!-- GALLERY -->
+                <div class="section-box">
+                    <div class="section-title">Gallery</div>
+                    <div class="gallery">
+                        <div class="gallery-item" style="background-image:url('social/1.jpg')"></div>
+                        <div class="gallery-item" style="background-image:url('social/2.jpg')"></div>
+                        <div class="gallery-item" style="background-image:url('social/3.jpg')"></div>
+                    </div>
+                </div>
+
+                <!-- PROMPTS -->
+                <!-- <div class="section-box">
+        <div class="section-title">Prompts</div>
+        <div class="prompt">En sevdiğim kahve?</div>
+        <div class="prompt">Hangi oyunları oynuyorum?</div>
+        <div class="prompt">Son izlediğim anime?</div>
+      </div> -->
+
+                <!-- social icons -->
+                <div class="socials" aria-label="Sosyal">
+                    <a class="social-icon" href="https://www.linkedin.com/in/berker-ozer-5bb1b2231/" target="_blank"
+                        rel="noopener" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48s.88 1.98 1.98 1.98A1.99 1.99 0 006.96 5.48C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 21h3v-11h-3v11zM9.5 10h2.8v1.5h.04c.39-.74 1.34-1.52 2.76-1.52 2.95 0 3.5 1.94 3.5 4.46V21h-3v-4.6c0-1.12-.02-2.56-1.56-2.56-1.56 0-1.8 1.22-1.8 2.48V21h-3v-11z" />
+                        </svg>
+                    </a>
+
+                    <a class="social-icon" href="https://github.com/ozerBerker" target="_blank" rel="noopener"
+                        title="GitHub">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1 1.7-.8 1.7-.8.9-1.6 2.4-1.1 3-.8.1-.8.4-1.1.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.7 4.4 18.7 4.7 18.7 4.7c.6 1.7.2 3 .1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.3.8 1 .8 2v3c0 .3.2.7.8.6A12 12 0 0012 .5z" />
+                        </svg>
+                    </a>
+
+                    <a class="social-icon" href="https://medium.com/@ozerberker19" target="_blank" rel="noopener"
+                        title="Medium">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2a10 10 0 100 20 10 10 0 000-20zm5 15.9A8.02 8.02 0 0111.1 7h5.9a7.98 7.98 0 010 10.9zM6.9 17A8.02 8.02 0 0113 7.1 8 8 0 016.9 17z" />
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

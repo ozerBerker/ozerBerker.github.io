@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>NFC Profile - Social</title>
+
+    <style>
+        :root {
+            --bg: #e9ecef;
+            --panel: #ffffff;
+            --muted: #6b7280;
+            --accent: #111827;
+            --primary: #0b74de;
+            --shadow: 0 8px 22px rgba(7, 12, 20, .14);
+            --round: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: var(--bg);
+            color: var(--accent);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ---------- WRAP (Corporate ile aynı) ----------- */
+        .wrap {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* ---------- CARD (Corporate ile aynı) ----------- */
+        .card {
+            width: 360px;
+            background: linear-gradient(180deg, #f7f7f8, #f2f3f5);
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(16, 24, 40, .12);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, .04);
+        }
+
+        /* ---------- BANNER ----------- */
+        .banner {
+            height: 140px;
+            background-image: url('social/banner.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* ---------- PROFILE ----------- */
+        .pfp-wrap {
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -60px;
+            border-radius: 14px;
+            background: #fff;
+            padding: 6px;
+            box-shadow: 0 12px 30px rgba(16, 24, 40, .18);
+        }
+
+        .pfp {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pfp img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ---------- CONTENT ----------- */
+        .content {
+            padding: 82px 22px 24px;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .school {
+            font-size: 14px;
+            text-align: center;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .department {
+            font-size: 14px;
+            text-align: center;
+            color: #374151;
+            margin-top: 4px;
+        }
+
+        /* ---------- SECTIONS ----------- */
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-top: 2px;
+            color: #0f172a;
+        }
+
+        .section-box {
+            background: var(--panel);
+            padding: 18px;
+            border-radius: 14px;
+            box-shadow: 0 10px 26px rgba(16, 24, 40, .06);
+            border: 1px solid rgba(0, 0, 0, .04);
+            margin-bottom: 22px;
+        }
+
+        /* ---------- ABOUT ----------- */
+        .about-text {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #374151;
+            margin-top: 6px;
+        }
+
+        /* ---------- INTEREST TAGS ----------- */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: #f2f3f5;
+            color: #111827;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ---------- GALLERY ----------- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 170px;
+            /* Sabit bir yükseklik verir */
+            object-fit: cover;
+            /* Taşırır ama oranı korur */
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+
+        .gallery-item {
+            width: 100%;
+            padding-bottom: 100%;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            background: #ddd;
+        }
+
+        /* ---------- PROMPTS ----------- */
+        .prompt {
+            background: #f1f1f3;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        /* ---------- ACTION BUTTONS ----------- */
+        .socials {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #111827;
+            opacity: .95;
+        }
+
+        /* Plain slider (no tags) */
+        .plain-slider {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .plain-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .p-item {
+            font-size: 14px;
+            white-space: nowrap;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        /* Divider line between slider items */
+        .p-divider {
+            width: 1px;
+            height: 14px;
+            background: #d1d5db;
+            flex-shrink: 0;
+        }
+
+        /* Bottom lines (with separators) */
+        .about-lines .line {
+            font-size: 14px;
+            color: #374151;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .about-lines .line:last-child {
+            border-bottom: none;
+        }
+
+        .a-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            opacity: 0.9;
+        }
+
+        /* Slider items */
+        .about-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 10px;
+            background: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .plain-slider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .plain-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Bottom lines */
+        .about-lines .line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #111827;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .about-lines .line:last-child {
+            border-bottom: none;
+        }
+
+        /* Tam ortaya dikey çizgi */
+        .about-divider {
+            width: 1px;
+            height: 16px;
+            background: #d1d5db;
+            flex-shrink: 0;
+            margin: 0 4px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        /* POPUP OVERLAY */
+        .img-popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+        }
+
+        .img-popup img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Kapatma butonu */
+        .close-popup {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 45px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .close-popup:hover {
+            transform: scale(1.15);
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+            padding: 0 22px 10px;
+        }
+
+        .act-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .act-left {
+            background: #111;
+            color: white;
+        }
+
+        .act-mid {
+            background: white;
+            color: #111;
+        }
+
+        .act-right {
+            background: #111;
+            color: white;
+        }
+
+        .act-btn:active {
+            transform: scale(0.94);
+            transition: 0.1s;
+        }
+
+        #btn-close,
+        #btn-vcard {
+            width: 3.5rem;
+            height: 3.5rem;
+            font-size: 20px;
+            margin-top: 5rem;
+        }
+
+        #btn-whatsapp {
+            width: 5rem;
+            height: 5rem;
+            font-size: 36px;
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="card">
+
+            <!-- BANNER -->
+            <div class="banner">
+                <div class="pfp-wrap">
+                    <div class="pfp"><img src="social/profile.jpg" alt=""></div>
+                </div>
+            </div>
+
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <div class="name">Berker Özer</div>
+
+                <!-- ABOUT -->
+                <!-- ABOUT (Icons + Plain Text) -->
+                <div class="section-box" style="margin-top:18px">
+                    <!-- SLIDER WITH ICONS -->
+                    <div class="plain-slider">
+                        <div class="about-item">
+                            <img src="social/icon-age.png" class="a-icon">
+                            <span>24</span>
+                        </div>
+                        <div class="about-divider"></div>
+                        <div class="about-item">
+                            <img src="social/icon-gender.png" class="a-icon">
+                            <span>Man</span>
+                        </div>
+                        <div class="about-divider"></div>
+                        <div class="about-item">
+                            <img src="social/icon-orientation.png" class="a-icon">
+                            <span>Straight</span>
+                        </div>
+                        <div class="about-divider"></div>
+                        <div class="about-item">
+                            <img src="social/icon-height.png" class="a-icon">
+                            <span>183 cm</span>
+                        </div>
+                        <div class="about-divider"></div>
+                        <div class="about-item">
+                            <img src="social/icon-horoscope.png" class="a-icon">
+                            <span>Leo</span>
+                        </div>
+                    </div>
+
+                    <!-- BOTTOM LINES (with icons) -->
+                    <div class="about-lines">
+
+                        <div class="line">
+                            <img src="social/icon-job.png" class="a-icon">
+                            <strong>Software Engineer</strong>
+                        </div>
+
+                        <div class="line">
+                            <img src="social/icon-school.png" class="a-icon">
+                            <strong>Bahcesehir University (BAU)</strong>
+                        </div>
+
+                        <div class="line">
+                            <img src="social/icon-location.png" class="a-icon">
+                            <strong>İstanbul</strong>
+                        </div>
+
+                        <div class="line">
+                            <img src="social/icon-language.png" class="a-icon">
+                            <strong>English, Turkish</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+                <!-- INTERESTS -->
+                <div class="section-box">
+                    <div class="section-title">My Interests</div>
+                    <div class="tags">
+                        <div id="Bars" class="tag">Bars</div>
+                        <div id="Anime" class="tag">Anime</div>
+                        <div id="Coffee" class="tag">Coffee</div>
+                        <div id="Programming" class="tag">Programming</div>
+                        <div id="Gaming" class="tag">Gaming</div>
+                    </div>
+                </div>
+
+                <!-- GALLERY -->
+                <div class="section-box">
+                    <div class="section-title">Gallery</div>
+
+                    <div class="gallery">
+                        <img src="social/3.jpg" class="gallery-img">
+                        <img src="social/2.jpg" class="gallery-img">
+                        <img src="social/1.jpg" class="gallery-img">
+                        <img src="social/4.jpg" class="gallery-img">
+                    </div>
+                </div>
+
+
+                <!-- SPOTIFY -->
+                <div class="section-box">
+                    <div class="section-title">My top genres on Spotify</div>
+
+                    <div class="about-text" style="font-size:14px; line-height:1.55; color:#111827;">
+                        1. Hard Rock<br>
+                        2. Indie Electronic<br>
+                        3. French Indie Pop<br>
+                        4. Classical Crossover<br>
+                        5. Alternative
+                    </div>
+                </div>
+
+
+                <!-- PROMPTS -->
+                <!-- <div class="section-box">
+        <div class="section-title">Prompts</div>
+        <div class="prompt">En sevdiğim kahve?</div>
+        <div class="prompt">Hangi oyunları oynuyorum?</div>
+        <div class="prompt">Son izlediğim anime?</div>
+      </div> -->
+
+                <!-- social icons -->
+                <div class="socials">
+                    <a class="social-icon" href="#" target="_blank" title="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6.5-.8a1.2 1.2 0 11-2.3 0 1.2 1.2 0 012.3 0z" />
+                        </svg>
+                    </a>
+                    <a class="social-icon" href="#" target="_blank" title="TikTok">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15 2a5 5 0 005 5v3a8 8 0 01-3-1v6a6 6 0 11-6-6h1v3a3 3 0 103 3V2z" />
+                        </svg>
+                    </a>
+                    <a class="social-icon" href="#" target="_blank" title="WhatsApp">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2a10 10 0 00-9 15l-1 4 4-1a10 10 0 101-18zm5 13c-.1-.2-.4-.3-.8-.5-.4-.1-2.3-1.1-2.7-1.2-.4-.1-.7-.2-1 .2-.3.3-1.1 1.2-1.3 1.4-.2.2-.5.2-.8.1-.4-.2-1.8-.7-3.3-2.2-1.2-1.1-2.2-2.4-2.4-2.8-.2-.4 0-.6.2-.8l1.4-1.6c.2-.2.3-.4.4-.6.1-.2 0-.4 0-.6 0-.2-.9-2.2-1.3-3-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4A4.6 4.6 0 003 8.3 11 11 0 0012 23c6 0 11-5 11-11 0-2.4-.7-4.6-2-6.4-.3-.4-.6-.6-.8-.6h-.9c-.2 0-.5 0-.7.3-.2.3-.9 2.3-1 2.5z" />
+                        </svg>
+                    </a>
+                    <a class="social-icon" href="https://www.linkedin.com/in/berker-ozer-5bb1b2231/" target="_blank"
+                        rel="noopener" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48s.88 1.98 1.98 1.98A1.99 1.99 0 006.96 5.48C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 21h3v-11h-3v11zM9.5 10h2.8v1.5h.04c.39-.74 1.34-1.52 2.76-1.52 2.95 0 3.5 1.94 3.5 4.46V21h-3v-4.6c0-1.12-.02-2.56-1.56-2.56-1.56 0-1.8 1.22-1.8 2.48V21h-3v-11z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- ACTION BUTTON BAR -->
+                <div class="action-bar">
+                    <div class="act-btn act-left" id="btn-close">
+                        ✖
+                    </div>
+
+                    <div class="act-btn act-mid" id="btn-whatsapp">
+                        ✦
+                    </div>
+
+                    <div class="act-btn act-right" id="btn-vcard">
+                        <3 </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+        <!-- Image Popup -->
+        <div id="img-popup" class="img-popup">
+            <span class="close-popup">&times;</span>
+            <img class="popup-img" id="popup-img">
+        </div>
+        <script>
+            const popup = document.getElementById("img-popup");
+            const popupImg = document.getElementById("popup-img");
+            const closeBtn = document.querySelector(".close-popup");
+
+            document.querySelectorAll(".gallery-img").forEach(img => {
+                img.addEventListener("click", () => {
+                    popup.style.display = "flex";
+                    popupImg.src = img.src;
+                });
+            });
+
+            closeBtn.addEventListener("click", () => {
+                popup.style.display = "none";
+            });
+
+            popup.addEventListener("click", (e) => {
+                if (e.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+        </script>
+        <script>
+            // --- BUTTON FUNCTIONS ---
+
+            // 1) WHATSAPP MESAJ – Ortadaki buton
+            document.getElementById("btn-whatsapp").onclick = function () {
+                window.location.href = "https://wa.me/905387336659?text=Merhaba%20Berker!%20NFC%20kartından%20geldim.%20:)";
+            };
+
+            // 2) VCARD PAYLAŞ – Sağdaki kalp
+            document.getElementById("btn-vcard").onclick = function () {
+                window.location.href = "vcard.vcf";
+            };
+
+            // 3) X butonu (şimdilik boş)
+            document.getElementById("btn-close").onclick = function () {
+                // Şimdilik bir şey yok :)
+            };
+
+        </script>
+
+</body>
+
+</html>
