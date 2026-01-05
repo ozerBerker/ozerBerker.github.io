@@ -4,30 +4,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Berker Özer - Profile Type</title>
-
+  <title>NFC Profile - Berker Özer</title>
   <style>
     :root {
       --bg: #e9ecef;
       --panel: #ffffff;
+      --muted: #6b7280;
       --accent: #111827;
       --primary: #0b74de;
-      --shadow: 0 18px 40px rgba(16, 24, 40, .12);
-      --round: 18px;
+      --shadow: 0 8px 22px rgba(7, 12, 20, .14);
+      --round: 14px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
-      margin: 0;
+    html,
+    body {
       height: 100%;
+      margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background: var(--bg);
       color: var(--accent);
-      overflow-x: hidden;
     }
 
-    a { text-decoration: none; color: inherit; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
     .wrap {
       width: 100%;
@@ -35,121 +45,432 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 20px;
+      padding: 24px;
     }
 
-    .grid {
+    .card {
+      width: 360px;
+      background: linear-gradient(180deg, #f7f7f8, #f2f3f5);
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(16, 24, 40, .12);
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, .04);
+    }
+
+    .banner {
+      height: 140px;
+      background-image: url('banner.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .pfp-wrap {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -60px;
+      border-radius: 14px;
+      background: #fff;
+      padding: 6px;
+      box-shadow: 0 12px 30px rgba(16, 24, 40, .18);
+    }
+
+    .pfp {
       width: 100%;
-      max-width: 420px;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .pfp img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .content {
+      padding: 82px 20px 20px;
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      color: #111827;
+    }
+
+    .company {
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .title {
+      font-style: italic;
+      color: #374151;
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 12px;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .action-btn {
+      width: 68px;
+      height: 68px;
+      background: var(--panel);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
-      gap: 26px;
-    }
-
-    /* base card */
-    .card {
-      position: relative;
-      background-size: contain;
-      background-position: center 33%; /* FOTO EN ÜSTTEN BAŞLASIN */
-      background-repeat: no-repeat;
-
-      border-radius: var(--round);
+      align-items: center;
+      justify-content: center;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(0, 0, 0, .05);
-      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, .03);
       cursor: pointer;
-
-      transition: transform .25s ease, box-shadow .25s ease;
-      height: 300px;
-      display: block;
+      font-size: 13px;
+      color: #101828;
     }
 
-    .card:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 22px 50px rgba(16, 24, 40, .17);
+    .action-ico {
+      font-size: 20px;
+      margin-bottom: 6px;
     }
 
-    /* fotoğraf karartma + blur */
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      background: rgba(0, 0, 0, 0.33); /* normalde %33 opacity */
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-
-      transition: background .25s ease, backdrop-filter .25s ease;
-      pointer-events: none;
+    .action-label {
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    /* hover → blur KALKAR, opacity KALKAR → FOTO FULL NET */
-    .card:hover::before {
-      background: rgba(0, 0, 0, 0);
-      backdrop-filter: blur(0px) !important;
+    .section {
+      padding: 18px 18px 8px;
     }
 
-    /* içerik alanı */
-    .card .content {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      padding: 18px;
-      z-index: 2;
-
-      background: rgba(0, 0, 0, 0.33); /* DAİMA 33% BLACK — HOVERDA DEĞİŞMİYOR */
+    .about-section {
+      background: linear-gradient(180deg, #ffffff, #f0f1f3);
+      border-radius: 16px;
+      padding: 20px 22px;
+      box-shadow: 0 12px 28px rgba(16, 24, 40, .07);
+      border: 1px solid rgba(0, 0, 0, .05);
+      margin-bottom: 24px;
       text-align: center;
-      backdrop-filter: blur(0px);
     }
 
-    .label {
-      color: #ffffff;
-      font-size: 24px;
+    .about-divider {
+      width: 60px;
+      height: 4px;
+      background: #0b74de;
+      border-radius: 20px;
+      margin: 10px auto 14px;
+    }
+
+    .about-title {
+      font-size: 15px;
       font-weight: 700;
-      margin: 0 0 6px 0;
+      color: #0f172a;
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
     }
 
-    .subtext {
-      color: #ffffff;
+    .about-text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #374151;
+      opacity: .95;
+      padding: 0 4px;
+    }
+
+    .cv-box {
+      background: var(--panel);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 26px rgba(16, 24, 40, .06);
+      margin-bottom: 22px;
+      border: 1px solid rgba(0, 0, 0, .04);
+      text-align: center;
+    }
+
+    .cv-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .cv-btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .cv-direct-btn {
+      flex: 1;
+      background: linear-gradient(180deg, #f7f9fb, #eef2f6);
+      padding: 12px 0;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, .05);
+      box-shadow: 0 6px 18px rgba(16, 24, 40, .07);
+      font-weight: 600;
       font-size: 14px;
-      opacity: 0.92;
-      margin: 0;
+      cursor: pointer;
+      color: #0b74de;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: .2s;
     }
 
-    @media (max-width: 420px) {
-      .card { height: 260px; }
-      .label { font-size: 20px; }
-      .subtext { font-size: 13px; }
+    .cv-direct-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(16, 24, 40, .1);
     }
 
-    .card-corporate { background-image: url('corporate/profile.jpg'); }
-    .card-social    { background-image: url('social/profile.jpg'); }
+    .cv-direct-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #0b74de;
+      opacity: .9;
+    }
+
+    .socials {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .social-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: #111827;
+      opacity: .95;
+    }
+
+    @media(max-width:380px) {
+      .card {
+        width: 340px;
+      }
+
+      .action-btn {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    /* Image Popup */
+.img-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 36px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+}
 
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="grid">
-
-      <a href="corporate.html" class="card card-corporate">
-        <div class="content">
-          <div class="label">Corporate</div>
-          <div class="subtext">Professional identity, CV, contact information, and business</div>
+    <div class="card" role="main" aria-label="Profil kartı">
+      <!-- banner + profile -->
+      <div class="banner" aria-hidden="true">
+        <div class="pfp-wrap">
+          <div class="pfp"><img src="profile.jpg" alt="Profile photo" id="pfpImg" class="gallery-img"></div>
         </div>
-      </a>
+      </div>
 
-      <a href="social.html" class="card card-social">
-        <div class="content">
-          <div class="label">Social</div>
-          <div class="subtext">Fun profile, fun facts, and a friendly/laid-back vibe</div>
+      <!-- content -->
+      <div class="content">
+        <div class="name" id="name">Berker Özer</div>
+        <div class="company" id="company">Trive International</div>
+        <div class="title" id="title">Business Intelligence</div>
+
+        <!-- actions row -->
+        <!-- actions row -->
+        <div class="actions" style="margin-top:18px">
+
+          <!-- CALL -->
+          <a class="action-btn" id="callAction" title="Ara" href="tel:+905387336659">
+            <div class="action-ico">📞</div>
+            <div class="action-label">Call</div>
+          </a>
+
+          <!-- MAIL -->
+          <a class="action-btn" id="mailAction" title="Mail" href="mailto:ozerberker19@gmail.com">
+            <div class="action-ico">✉️</div>
+            <div class="action-label">Email</div>
+          </a>
+
+          <!-- VCARD -->
+          <a class="action-btn" id="saveAction" title="Kaydet" href="vcard.vcf">
+            <div class="action-ico">👤➕</div>
+            <div class="action-label">Save Card</div>
+          </a>
+
         </div>
-      </a>
 
-    </div>
-  </div>
+
+        <!-- contact rows -->
+        <div class="section" aria-label="İletişim bilgileri">
+          <!-- <div class="row">
+          <div class="left">
+            <div class="icon-badge">📞</div>
+            <div>
+              <div style="font-size:12px;color:var(--muted)">Telefon</div>
+              <div class="value" id="phoneVal">+11111111111</div>
+            </div>
+          </div>
+          <div class="copy-btn" data-copy="+11111111111" title="Kopyala">📋</div>
+        </div> -->
+
+          <!-- ABOUT / HAKKIMDA -->
+          <div class="about-section">
+            <div class="about-title">Data Science • AI • ML</div>
+            <div class="about-divider"></div>
+
+            <div class="about-text">
+              Software Engineering graduate focused on data science, AI, machine learning
+              and analytical decision-making. Passionate about building data-driven systems
+              and designing smart algorithmic solutions.
+            </div>
+          </div>
+
+
+          <!-- CV
+          <div class="cv-box">
+            <div class="cv-title">CV</div>
+            <div class="cv-btn-row">
+              <a href="cv.pdf" target="_blank" rel="noopener" class="cv-direct-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 4h14v2H5zm0 4h14v2H5zm0 4h9v2H5zm0 4h9v2H5z" />
+                </svg>
+                View
+              </a>
+              <a href="cv.pdf?raw=1" download="Berker-Ozer-CV.pdf" class="cv-direct-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 16l4-5h-3V4h-2v7H8zm-7 2v2h14v-2H5z" />
+                </svg>
+                Download
+              </a>
+            </div>
+          </div> -->
+
+          <div class="cv-box">
+            <div class="cv-btn-row">
+              <a href="cv_s.pdf" target="_blank" rel="noopener" class="cv-direct-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 4h14v2H5zm0 4h14v2H5zm0 4h9v2H5zm0 4h9v2H5z" />
+                </svg>
+                Standart CV
+              </a>
+            </div>
+            <div class="cv-btn-row">
+              <a href="cv_m.pdf" target="_blank" rel="noopener" class="cv-direct-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 4h14v2H5zm0 4h14v2H5zm0 4h9v2H5zm0 4h9v2H5z" />
+                </svg>
+                Modern CV
+              </a>
+            </div>
+          </div>
+
+          <!-- social icons -->
+          <div class="socials" aria-label="Sosyal">
+            <a class="social-icon" href="https://www.linkedin.com/in/berker-ozer-5bb1b2231/" target="_blank"
+              rel="noopener" title="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+              </svg>
+            </a>
+
+            <a class="social-icon" href="https://github.com/ozerBerker" target="_blank" rel="noopener" title="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+              </svg>
+            </a>
+
+            <a class="social-icon" href="https://medium.com/@ozerberker19" target="_blank" rel="noopener"
+              title="Medium">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-medium"
+                viewBox="0 0 16 16">
+                <path
+                  d="M9.025 8c0 2.485-2.02 4.5-4.513 4.5A4.506 4.506 0 0 1 0 8c0-2.486 2.02-4.5 4.512-4.5A4.506 4.506 0 0 1 9.025 8m4.95 0c0 2.34-1.01 4.236-2.256 4.236S9.463 10.339 9.463 8c0-2.34 1.01-4.236 2.256-4.236S13.975 5.661 13.975 8M16 8c0 2.096-.355 3.795-.794 3.795-.438 0-.793-1.7-.793-3.795 0-2.096.355-3.795.794-3.795.438 0 .793 1.699.793 3.795" />
+              </svg>
+            </a>
+          </div>
+<!-- Image Popup -->
+<div id="img-popup" class="img-popup">
+  <span class="close-popup">&times;</span>
+  <img class="popup-img" id="popup-img">
+</div>
+<script>
+  const popup = document.getElementById("img-popup");
+  const popupImg = document.getElementById("popup-img");
+  const closeBtn = document.querySelector(".close-popup");
+
+  document.querySelectorAll(".gallery-img").forEach(img => {
+    img.addEventListener("click", () => {
+      popup.style.display = "flex";
+      popupImg.src = img.src;
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      popup.style.display = "none";
+    }
+  });
+</script>
+
+
 </body>
 
 </html>
